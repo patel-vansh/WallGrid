@@ -1,6 +1,6 @@
 import { loadLayout, saveLayout } from './storage.js';
 
-const activeTiles = ['weather'];
+const activeTiles = ['weather', 'clock'];
 let tileElements = [];
 
 export async function renderTiles() {

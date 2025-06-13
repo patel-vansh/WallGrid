@@ -7,10 +7,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     applyTheme(); // load user preferences
     await renderTiles();
 
-    const toggle = document.getElementById("edit-toggle");
-    toggle.addEventListener("click", () => {
+    const settings = document.getElementById("settings-img");
+    settings.addEventListener("click", () => {
         isEditMode = !isEditMode;
-        toggle.innerText = isEditMode ? "Done" : "Edit";
+        if (isEditMode) {
+            settings.classList.add("edit-mode");
+        } else {
+            settings.classList.remove("edit-mode");
+        }
+        settings.src = isEditMode ? "assets/icons/check.svg" : "assets/icons/settings.svg";
 
         if (isEditMode) {
             enableEditMode();
