@@ -1,17 +1,55 @@
+:root {
+    --bg-color: #111;
+    --tile-bg: rgba(255, 255, 255, 0.08);
+    --tile-border: #fff;
+    --text-color: white;
+    --edit-button-bg: #474747;
+    --edit-button-color: white;
+}
+
 body {
     margin: 0;
-    background-color: #111;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     font-family: sans-serif;
     overflow: hidden;
 }
 
 .tile {
     padding: 10px;
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--tile-bg);
     border-radius: 10px;
     position: absolute;
     min-width: 120px;
     min-height: 50px;
-    color: white;
+    color: var(--text-color);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+#edit-toggle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 0;
+    opacity: 0.2;
+    background: var(--edit-button-bg);
+    color: var(--edit-button-color);
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    transition: opacity 0.3s;
+}
+
+#edit-toggle:hover {
+    opacity: 1;
+    width: auto;
+    height: auto;
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.tile.editing {
+    border: 2px dashed var(--tile-border);
+    cursor: move;
 }

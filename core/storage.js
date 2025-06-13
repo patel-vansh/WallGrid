@@ -1,8 +1,10 @@
-export function saveState(state) {
-    localStorage.setItem('wallgrid-state', JSON.stringify(state));
+const KEY_LAYOUT = "wallgrid-layout";
+
+export function saveLayout(layout) {
+    localStorage.setItem(KEY_LAYOUT, JSON.stringify(layout));
 }
 
-export function loadState() {
-    const raw = localStorage.getItem('wallgrid-state');
-    return raw ? JSON.parse(raw) : null;
+export function loadLayout() {
+    const raw = localStorage.getItem(KEY_LAYOUT);
+    return raw ? JSON.parse(raw) : {};
 }
