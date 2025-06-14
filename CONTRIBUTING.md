@@ -7,6 +7,7 @@ Welcome, and thank you for considering contributing to **Wallgrid**!
 - New tiles
 - Bug fixes or improvements
 - Feature requests or UI enhancements
+- New Themes
 - Documentation updates
 
 ## Tile Structure
@@ -41,6 +42,9 @@ Open an issue with the `feature` or `enhancement` label and clearly explain:
 - Use case
 - Proposed behavior
 - Optional: screenshots/mockups
+
+## New Themes
+
 
 ## Development
 - Fork the repo
