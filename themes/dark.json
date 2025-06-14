@@ -1,0 +1,17 @@
+{
+    "name": "Dark",
+    "description": "A dark theme with high contrast for better visibility in low light conditions.",
+    "colors": {
+        "--wall-bg": "#111",
+        "--tile-bg": "rgba(255, 255, 255, 0.08)",
+        "--tile-text": "#fff",
+        "--tile-text-secondary": "#ccc",
+        "--btn-bg": "rgba(255, 255, 255, 0.1)",
+        "--btn-text": "#fff",
+        "--btn-text-secondary": "#ccc",
+        "--btn-bg-hover": "rgba(255, 255, 255, 0.2)",
+        "--btn-text-hover": "#111",
+        "--btn-bg-active": "rgba(255, 255, 255, 0.3)",
+        "--btn-text-active": "#111"
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "name": "Light",
+    "description": "A light theme with soft colors for a clean and bright interface.",
+    "colors": {
+        "--wall-bg": "#fff",
+        "--tile-bg": "rgba(0, 0, 0, 0.08)",
+        "--tile-text": "#111",
+        "--tile-text-secondary": "#444",
+        "--btn-bg": "rgba(0, 0, 0, 0.1)",
+        "--btn-text": "#111",
+        "--btn-text-secondary": "#444",
+        "--btn-bg-hover": "rgba(0, 0, 0, 0.2)",
+        "--btn-text-hover": "#fff",
+        "--btn-bg-active": "rgba(255, 255, 255, 0.3)",
+        "--btn-text-active": "#111"
+    }
+}
