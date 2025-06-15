@@ -2,11 +2,16 @@ import { applyTheme, getCurrentThemeName } from './themeManager.js';
 import { renderTiles } from './tileManager.js';
 import { getEditMode, toggleEditMode } from './storage.js';
 import './icons.js';
-import { createElement, Check, Settings, Paintbrush, Plus } from '../assets/icons/lucide.js';
+import { createElement, Check,
+    Settings, Paintbrush, Plus,
+    Moon, Sun, Monitor } from '../assets/icons/lucide.js';
 
 const settingsBtn = document.getElementById('settings-icon');
 const addTileBtn = document.getElementById('add-tile-icon');
 const changeThemeBtn = document.getElementById('change-theme-icon');
+const changeThemeDarkBtn = document.getElementById('change-theme-dark-icon');
+const changeThemeLightBtn = document.getElementById('change-theme-light-icon');
+const changeThemeDeviceBtn = document.getElementById('change-theme-device-icon');
 const container = document.getElementById('wallgrid-container');
 
 
@@ -24,6 +29,15 @@ document.addEventListener('DOMContentLoaded', () => {
     changeThemeBtn.innerHTML = ''; // Clear existing icon
     changeThemeBtn.appendChild(createElement(Paintbrush));
 
+    changeThemeDarkBtn.innerHTML = ''; // Clear existing icon
+    changeThemeDarkBtn.appendChild(createElement(Moon));
+
+    changeThemeLightBtn.innerHTML = ''; // Clear existing icon
+    changeThemeLightBtn.appendChild(createElement(Sun));
+
+    changeThemeDeviceBtn.innerHTML = ''; // Clear existing icon
+    changeThemeDeviceBtn.appendChild(createElement(Monitor));
+
     if (isEditMode) {
         document.body.classList.add('edit-mode');
         settingsBtn.classList.add('edit-mode');
@@ -33,6 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
         settingsBtn.classList.remove('edit-mode');
         hideEditButtons();
     }
+
+    hideThemeButtons();
 
     renderTiles(container);
 
@@ -55,8 +71,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
     changeThemeBtn.addEventListener('click', () => {
         const currentTheme = getCurrentThemeName();
-        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-        applyTheme(newTheme);
+        if (changeThemeDarkBtn.style.display === 'block') {
+            hideThemeButtons();
+        } else {
+            showThemeButtons();
+            if (currentTheme === 'dark') {
+                changeThemeDarkBtn.classList.add('active');
+                changeThemeLightBtn.classList.remove('active');
+                changeThemeDeviceBtn.classList.remove('active');
+            } else if (currentTheme === 'light') {
+                changeThemeDarkBtn.classList.remove('active');
+                changeThemeLightBtn.classList.add('active');
+                changeThemeDeviceBtn.classList.remove('active');
+            } else if (currentTheme === 'device') {   
+                changeThemeDarkBtn.classList.remove('active');
+                changeThemeLightBtn.classList.remove('active');
+                changeThemeDeviceBtn.classList.add('active');
+            }
+        }
+    });
+
+    changeThemeDarkBtn.addEventListener('click', () => {
+        applyTheme('dark');
+        changeThemeDarkBtn.classList.add('active');
+        changeThemeLightBtn.classList.remove('active');
+        changeThemeDeviceBtn.classList.remove('active');
+    });
+
+    changeThemeLightBtn.addEventListener('click', () => {
+        applyTheme('light');
+        changeThemeDarkBtn.classList.remove('active');
+        changeThemeLightBtn.classList.add('active');
+        changeThemeDeviceBtn.classList.remove('active');
+    });
+
+    changeThemeDeviceBtn.addEventListener('click', () => {
+        applyTheme('device');
+        changeThemeDarkBtn.classList.remove('active');
+        changeThemeLightBtn.classList.remove('active');
+        changeThemeDeviceBtn.classList.add('active');
     });
 });
 
@@ -84,5 +137,40 @@ function hideEditButtons() {
         changeThemeBtn.classList.remove('popup-exit');
         addTileBtn.style.display = 'none';
         changeThemeBtn.style.display = 'none';
+    }, 300); // Match the CSS transition duration
+}
+
+function showThemeButtons() {
+    changeThemeDarkBtn.style.display = 'block';
+    changeThemeLightBtn.style.display = 'block';
+    changeThemeDeviceBtn.style.display = 'block';
+
+    changeThemeDarkBtn.classList.add('popup-enter');
+    changeThemeLightBtn.classList.add('popup-enter');
+    changeThemeDeviceBtn.classList.add('popup-enter');
+    
+    setTimeout(() => {
+        changeThemeDarkBtn.classList.remove('popup-enter');
+        changeThemeLightBtn.classList.remove('popup-enter');
+        changeThemeDeviceBtn.classList.remove('popup-enter');
+    }, 300); // Match the CSS transition duration
+}
+
+function hideThemeButtons() {
+    changeThemeDarkBtn.classList.remove('popup-enter');
+    changeThemeLightBtn.classList.remove('popup-enter');
+    changeThemeDeviceBtn.classList.remove('popup-enter');
+
+    changeThemeDarkBtn.classList.add('popup-exit');
+    changeThemeLightBtn.classList.add('popup-exit');
+    changeThemeDeviceBtn.classList.add('popup-exit');
+
+    setTimeout(() => {
+        changeThemeDarkBtn.classList.remove('popup-exit');
+        changeThemeLightBtn.classList.remove('popup-exit');
+        changeThemeDeviceBtn.classList.remove('popup-exit');
+        changeThemeDarkBtn.style.display = 'none';
+        changeThemeLightBtn.style.display = 'none';
+        changeThemeDeviceBtn.style.display = 'none';
     }, 300); // Match the CSS transition duration
 }

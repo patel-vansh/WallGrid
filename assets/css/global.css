@@ -21,7 +21,10 @@ body {
 
 #settings-icon,
 #add-tile-icon,
-#change-theme-icon {
+#change-theme-icon,
+#change-theme-dark-icon,
+#change-theme-light-icon,
+#change-theme-device-icon {
     width: 40px;
     height: 40px;
     display: flex;
@@ -51,9 +54,32 @@ body {
     right: 8px;
 }
 
+#change-theme-dark-icon {
+    top: 108px;
+    right: 58px;
+}
+
+#change-theme-light-icon {
+    top: 108px;
+    right: 108px;
+}
+
+#change-theme-device-icon {
+    top: 108px;
+    right: 158px;
+}
+
 #settings-icon:hover,
 #add-tile-icon:hover,
-#change-theme-icon:hover {
+#change-theme-icon:hover,
+#change-theme-dark-icon:hover,
+#change-theme-light-icon:hover,
+#change-theme-device-icon:hover {
+    background-color: var(--btn-bg-hover);
+    color: var(--btn-text-hover);
+}
+
+#change-theme-dark-icon.active, #change-theme-light-icon.active, #change-theme-device-icon.active {
     background-color: var(--btn-bg-hover);
     color: var(--btn-text-hover);
 }
@@ -63,11 +89,17 @@ body {
 }
 
 #add-tile-icon.popup-enter,
-#change-theme-icon.popup-enter {
+#change-theme-icon.popup-enter,
+#change-theme-dark-icon.popup-enter,
+#change-theme-light-icon.popup-enter,
+#change-theme-device-icon.popup-enter {
     transform: scale(1);
 }
 
 #add-tile-icon.popup-exit,
-#change-theme-icon.popup-exit {
+#change-theme-icon.popup-exit,
+#change-theme-dark-icon.popup-exit,
+#change-theme-light-icon.popup-exit,
+#change-theme-device-icon.popup-exit {
     transform: scale(0);
 }
