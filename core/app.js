@@ -53,14 +53,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    document.querySelectorAll('.tile').forEach(tile => {
-        tile.addEventListener('mousemove', (e) => {
-            const rect = tile.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            tile.style.setProperty('--mouse-x', `${x}px`);
-            tile.style.setProperty('--mouse-y', `${y}px`);
-        });
+    changeThemeBtn.addEventListener('click', () => {
+        const currentTheme = getCurrentThemeName();
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        applyTheme(newTheme);
     });
 });
 

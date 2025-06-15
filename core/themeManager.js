@@ -20,7 +20,7 @@ const themes = {
         "type": "core",
         "colors": {
             "--wall-bg": "#fff",
-            "--tile-bg": "rgba(255, 255, 255, 0.1)",
+            "--tile-bg": "rgba(0, 0, 0, 0.08)",
             "--tile-text": "#111",
             "--tile-text-secondary": "#444",
             "--btn-bg": "rgba(0, 0, 0, 0.1)",
@@ -75,4 +75,5 @@ export function applyTheme(themeName) {
     Object.entries(theme.colors).forEach(([key, value]) => {
         document.documentElement.style.setProperty(key, value);
     });
+    saveStorage('theme', themeName);
 }
