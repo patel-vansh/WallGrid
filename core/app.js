@@ -1,10 +1,12 @@
 import { applyTheme, getCurrentThemeName } from './themeManager.js';
-import { renderTiles } from './tileManager.js';
+import { renderTiles, saveTileLayout } from './tileManager.js';
 import { getEditMode, toggleEditMode } from './storage.js';
 import './icons.js';
-import { createElement, Check,
+import {
+    createElement, Check,
     Settings, Paintbrush, Plus,
-    Moon, Sun, Monitor } from '../assets/icons/lucide.js';
+    Moon, Sun, Monitor
+} from '../assets/icons/lucide.js';
 
 const settingsBtn = document.getElementById('settings-icon');
 const addTileBtn = document.getElementById('add-tile-icon');
@@ -39,13 +41,9 @@ document.addEventListener('DOMContentLoaded', () => {
     changeThemeDeviceBtn.appendChild(createElement(Monitor));
 
     if (isEditMode) {
-        document.body.classList.add('edit-mode');
-        settingsBtn.classList.add('edit-mode');
-        showEditButtons();
+        enableEditMode();
     } else {
-        document.body.classList.remove('edit-mode');
-        settingsBtn.classList.remove('edit-mode');
-        hideEditButtons();
+        disableEditMode();
     }
 
     hideThemeButtons();
@@ -59,13 +57,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         settingsBtn.innerHTML = ''; // Clear existing icon
         settingsBtn.appendChild(newIcon);
-        document.body.classList.toggle('edit-mode', toggled);
-        settingsBtn.classList.toggle('edit-mode', toggled);
 
         if (toggled) {
-            showEditButtons();
+            enableEditMode();
         } else {
-            hideEditButtons();
+            disableEditMode();
         }
     });
 
@@ -83,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 changeThemeDarkBtn.classList.remove('active');
                 changeThemeLightBtn.classList.add('active');
                 changeThemeDeviceBtn.classList.remove('active');
-            } else if (currentTheme === 'device') {   
+            } else if (currentTheme === 'device') {
                 changeThemeDarkBtn.classList.remove('active');
                 changeThemeLightBtn.classList.remove('active');
                 changeThemeDeviceBtn.classList.add('active');
@@ -112,6 +108,51 @@ document.addEventListener('DOMContentLoaded', () => {
         changeThemeDeviceBtn.classList.add('active');
     });
 });
+
+function enableEditMode() {
+    document.body.classList.add('edit-mode');
+    document.querySelectorAll('.tile').forEach(tile => {
+        tile.classList.add('edit-mode');
+    });
+    settingsBtn.classList.add('edit-mode');
+    enableDragForTiles();
+    showEditButtons();
+}
+
+function enableDragForTiles() {
+    const tiles = document.querySelectorAll('.tile');
+    tiles.forEach(tile => {
+        tile.onmousedown = (e) => {
+            const offsetX = e.offsetX;
+            const offsetY = e.offsetY;
+
+            const onMove = (ev) => {
+                tile.style.left = `${ev.clientX - offsetX}px`;
+                tile.style.top = `${ev.clientY - offsetY}px`;
+            };
+
+            const onUp = () => {
+                document.removeEventListener('mousemove', onMove);
+                document.removeEventListener('mouseup', onUp);
+                saveTileLayout(document.querySelectorAll('.tile'));
+            };
+
+            document.addEventListener('mousemove', onMove);
+            document.addEventListener('mouseup', onUp);
+        };
+    });
+}
+
+function disableEditMode() {
+    document.body.classList.remove('edit-mode');
+    document.querySelectorAll('.tile').forEach(tile => {
+        tile.classList.remove('edit-mode');
+        tile.onmousedown = null;
+    });
+    settingsBtn.classList.remove('edit-mode');
+    hideEditButtons();
+    hideThemeButtons();
+}
 
 function showEditButtons() {
     addTileBtn.style.display = 'block';
@@ -148,7 +189,7 @@ function showThemeButtons() {
     changeThemeDarkBtn.classList.add('popup-enter');
     changeThemeLightBtn.classList.add('popup-enter');
     changeThemeDeviceBtn.classList.add('popup-enter');
-    
+
     setTimeout(() => {
         changeThemeDarkBtn.classList.remove('popup-enter');
         changeThemeLightBtn.classList.remove('popup-enter');
