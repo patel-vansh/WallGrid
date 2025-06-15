@@ -1,8 +1,9 @@
-import { createIcons, AlarmClock, Settings } from '../assets/icons/lucide.js';
+import { createIcons, AlarmClock, Settings, Check } from '../assets/icons/lucide.js';
 
 createIcons({
   icons: {
     AlarmClock,
-    Settings
+    Settings,
+    Check
   }
 });

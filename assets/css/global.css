@@ -1,0 +1,73 @@
+body {
+    background-color: var(--wall-bg);
+    color: var(--tile-text);
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+.tile {
+    background-color: var(--tile-bg);
+    color: var(--tile-text);
+    border-radius: 8px;
+    padding: 16px;
+    margin: 8px;
+    width: max-content;
+    user-select: none;
+}
+
+#settings-icon,
+#add-tile-icon,
+#change-theme-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    position: absolute;
+    transition: all 0.3s ease;
+}
+
+#settings-icon {
+    top: 8px;
+    right: 8px;
+}
+
+#add-tile-icon {
+    top: 58px;
+    right: 8px;
+}
+
+#change-theme-icon {
+    top: 108px;
+    right: 8px;
+}
+
+#settings-icon:hover,
+#add-tile-icon:hover,
+#change-theme-icon:hover {
+    background-color: var(--btn-bg-hover);
+    color: var(--btn-text-hover);
+}
+
+#settings-icon:not(.edit-mode):hover {
+    transform: rotate(90deg);
+}
+
+#add-tile-icon.popup-enter,
+#change-theme-icon.popup-enter {
+    transform: scale(1);
+}
+
+#add-tile-icon.popup-exit,
+#change-theme-icon.popup-exit {
+    transform: scale(0);
+}
