@@ -3,8 +3,7 @@ import { getCurrentThemeName } from './themeManager.js';
 
 export async function renderTiles(container) {
     const theme = getCurrentThemeName();
-    // const layout = JSON.parse(getStorage('tileLayout')) || {"clock": {"left": "0px", "top": "0px"}};
-    const layout = {"clock": {"left": "0px", "top": "0px"}};
+    const layout = JSON.parse(getStorage('tileLayout')) || {};
 
     container.innerHTML = '';
 
@@ -32,6 +31,7 @@ export async function renderTiles(container) {
             const tile = document.createElement('div');
             tile.id = `tile-${tileId}`;
             tile.className = `tile tile-${tileId}`;
+            tile.setAttribute('data-tile-id', tileId);
             tile.style.left = layout[tileId]?.left || '0px';
             tile.style.top = layout[tileId]?.top || '0px';
             const tileContent = module.render(config, theme);
@@ -46,7 +46,7 @@ export async function renderTiles(container) {
 export function saveTileLayout(tileElements) {
     const layout = {};
     tileElements.forEach(tile => {
-        layout[tile.dataset.tileId] = {
+        layout[tile.getAttribute('data-tile-id')] = {
             left: tile.style.left,
             top: tile.style.top,
         };

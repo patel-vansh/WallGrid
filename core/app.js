@@ -1,6 +1,6 @@
 import { applyTheme, getCurrentThemeName } from './themeManager.js';
 import { renderTiles, saveTileLayout } from './tileManager.js';
-import { getEditMode, toggleEditMode } from './storage.js';
+import { toggleEditMode } from './storage.js';
 import './icons.js';
 import {
     createElement, Check,
@@ -21,9 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const theme = getCurrentThemeName();
     applyTheme(theme);
 
-    const isEditMode = getEditMode();
     settingsBtn.innerHTML = ''; // Clear existing icon
-    settingsBtn.appendChild(createElement(isEditMode ? Check : Settings));
+    settingsBtn.appendChild(createElement(Settings));
 
     addTileBtn.innerHTML = ''; // Clear existing icon
     addTileBtn.appendChild(createElement(Plus));
@@ -40,11 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     changeThemeDeviceBtn.innerHTML = ''; // Clear existing icon
     changeThemeDeviceBtn.appendChild(createElement(Monitor));
 
-    if (isEditMode) {
-        enableEditMode();
-    } else {
-        disableEditMode();
-    }
+    disableEditMode();
 
     hideThemeButtons();
 
@@ -117,16 +112,21 @@ function enableEditMode() {
     settingsBtn.classList.add('edit-mode');
     enableDragForTiles();
     showEditButtons();
+    toggleEditMode(true);
 }
 
 function enableDragForTiles() {
     const tiles = document.querySelectorAll('.tile');
     tiles.forEach(tile => {
         tile.onmousedown = (e) => {
-            const offsetX = e.offsetX;
-            const offsetY = e.offsetY;
+            e.preventDefault(); // prevent text selection during drag
+
+            const rect = tile.getBoundingClientRect();
+            const offsetX = e.clientX - rect.left;
+            const offsetY = e.clientY - rect.top;
 
             const onMove = (ev) => {
+                tile.style.position = 'absolute'; // Ensure tile is positioned
                 tile.style.left = `${ev.clientX - offsetX}px`;
                 tile.style.top = `${ev.clientY - offsetY}px`;
             };
@@ -152,6 +152,7 @@ function disableEditMode() {
     settingsBtn.classList.remove('edit-mode');
     hideEditButtons();
     hideThemeButtons();
+    toggleEditMode(false);
 }
 
 function showEditButtons() {

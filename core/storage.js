@@ -16,7 +16,11 @@ export function getEditMode() {
     return localStorage.getItem(STORAGE_PREFIX + 'edit-mode') === 'true';
 }
 
-export function toggleEditMode() {
+export function toggleEditMode(newMode = null) {
+    if (newMode !== null) {
+        localStorage.setItem(STORAGE_PREFIX + 'edit-mode', newMode);
+        return newMode;
+    }
     const mode = !getEditMode();
     localStorage.setItem(STORAGE_PREFIX + 'edit-mode', mode);
     return mode;
